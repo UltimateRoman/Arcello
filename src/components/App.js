@@ -6,6 +6,7 @@ import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Home from './Home';
+import Create from './Create';
 import logo1 from '../logo.png';
 
 class App extends Component {
@@ -61,6 +62,15 @@ class App extends Component {
     }
   }
 
+  createAsset(price, name, fileid) {
+    this.setState({ loading: true })
+    this.state.arcello.methods.createAsset(window.web3.utils.toWei(price.toString(), 'ether'), name, fileid).send({ from: this.state.account })
+    .once('confirmation', (n, receipt) => {
+      this.setState({ loading: false })
+      window.location.reload()
+    })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -70,6 +80,8 @@ class App extends Component {
       bids: [],
       loading: true
     }
+
+    this.createAsset = this.createAsset.bind(this)
   }
 
   render() {
@@ -94,6 +106,15 @@ class App extends Component {
               this.state.loading
               ? <div class="center"><SemipolarSpinner size="100" color="blue"/></div>
               : <Home />
+              }
+            </React.Fragment>
+          )}  />
+          <Route exact path="/create" render={props => (
+            <React.Fragment>
+              {  
+              this.state.loading
+              ? <div class="center"><SemipolarSpinner size="100" color="blue"/></div>
+              : <Create />
               }
             </React.Fragment>
           )}  />
