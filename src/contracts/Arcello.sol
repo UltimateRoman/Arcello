@@ -1,6 +1,10 @@
 pragma solidity >=0.5.0;
 
-contract Arcello {
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+contract Arcello is ERC721 {
+
+    constructor() ERC721("Arcello", "ARC") {}
 
     uint public tokenid;
 
