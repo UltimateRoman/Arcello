@@ -39,7 +39,6 @@ contract Arcello is ERC721 {
         _setTokenURI(tokenid, _fileid);
         assets[tokenid] = Asset(tokenid, false, _price, _name, _fileid, msg.sender, msg.sender, msg.sender);
     }
-    
 
     function createBid(uint _tid, uint256 _amount) public payable isAsset(_tid) {
         Asset memory asset = assets[_tid];
@@ -47,5 +46,15 @@ contract Arcello is ERC721 {
         require(_amount > price, "Bid amount less than base price");
         bidCount++;    
         bids[bidCount] = Bid(bidCount, _tid, _amount, asset.creator,  msg.sender);
+    }
+
+    function approveBid(uint _id) public {
+        require(_id > 0 && _id <= bidCount);
+        Bid memory bid = bids[_id];
+        approve(bid.bidder, bid.tid);
+        Asset memory asset = assets[bid.tid];
+        asset.price = bid.amount;
+        asset.approvedTo = bid.bidder;
+        assets[bid.tid] = asset;
     }
 }
