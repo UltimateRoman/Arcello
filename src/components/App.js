@@ -37,6 +37,24 @@ class App extends Component {
     if(networkData) {
       const arcello = new web3.eth.Contract(Arcello.abi, networkData.address)
       this.setState({ arcello })
+      const tokenid = await arcello.methods.tokenid.call()
+      for (let i = 1; i <= tokenid; i++) {
+        const asset = await arcello.methods.assets(i).call()
+        if(asset.owner == this.state.account) {
+          this.setState({
+            assets: [...this.state.assets, asset]
+          })
+        }
+      }
+      const bidCount = await arcello.methods.bidCount.call()
+      for (let i = 1; i <= bidCount; i++) {
+        const bid = await arcello.methods.bids(i).call()
+        if(bid.creator == this.state.account) {
+          this.setState({
+            bids: [...this.state.bids, bid]
+          })
+        }
+      }
       this.setState({ loading: false })
     } else {
       window.alert('Contract could not be deployed.')
@@ -48,6 +66,8 @@ class App extends Component {
     this.state = {
       account: '',
       arcello: null,
+      assets: [],
+      bids: [],
       loading: true
     }
   }
