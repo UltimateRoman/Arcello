@@ -5,6 +5,7 @@ import { ReactNavbar } from "react-responsive-animate-navbar";
 import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
+import Home from './Home';
 import logo1 from '../logo.png';
 
 class App extends Component {
@@ -56,14 +57,26 @@ class App extends Component {
       <div style={{height:800}}>
         <Router>
           <ReactNavbar
-          color="rgb(240,248,255)"
+          color="rgb(0,0,0)"
           logo={logo1}
           menu={[
-            { name: "HOME", to: "/" }
+            { name: "HOME", to: "/" },
+            { name: "GALLERY", to: "/gallery" },
+            { name: "CREATE", to: "/create" },
+            { name: "YOUR ASSETS", to: "/myassets" },
+            { name: "BIDS", to: "/bids" },
           ]}
           social={[]}
           />
-          <Route exact path="/"/>
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+              {  
+              this.state.loading
+              ? <div class="center"><SemipolarSpinner size="100"/></div>
+              : <Home />
+              }
+            </React.Fragment>
+          )}  />
         </Router>
       </div>
     );
