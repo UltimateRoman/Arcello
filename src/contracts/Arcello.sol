@@ -32,10 +32,20 @@ contract Arcello is ERC721 {
     }
 
 
-  function createAsset(uint256 _price, string memory _name) public {
+    function createAsset(uint256 _price, string memory _name, string memory _fileid) public {
         require(_price > 0);
         tokenid++;
         _safeMint(msg.sender, tokenid);
-        assets[tokenid] = Asset(tokenid, false, _price, _name, msg.sender, msg.sender);
+        _setTokenURI(tokenid, _fileid);
+        assets[tokenid] = Asset(tokenid, false, _price, _name, _fileid, msg.sender, msg.sender, msg.sender);
+    }
+    
+
+    function createBid(uint _tid, uint256 _amount) public payable isAsset(_tid) {
+        Asset memory asset = assets[_tid];
+        uint256 price = asset.price;
+        require(_amount > price, "Bid amount less than base price");
+        bidCount++;    
+        bids[bidCount] = Bid(bidCount, _tid, _amount, asset.creator,  msg.sender);
     }
 }
