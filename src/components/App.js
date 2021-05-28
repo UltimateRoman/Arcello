@@ -92,7 +92,7 @@ class App extends Component {
             <React.Fragment>
               {  
               this.state.loading
-              ? <div class="center"><SemipolarSpinner size="100"/></div>
+              ? <div class="center"><SemipolarSpinner size="100" color="blue"/></div>
               : <Home />
               }
             </React.Fragment>
