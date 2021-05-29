@@ -168,7 +168,10 @@ class App extends Component {
                 {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                    : <Home verifyOwnership={this.verifyOwnership} />
+                    : <Home 
+                        account={this.state.account}
+                        verifyOwnership={this.verifyOwnership} 
+                      />
                 }
               </React.Fragment>
             )} />

@@ -66,12 +66,10 @@ contract Arcello is ERC721 {
     Asset memory asset = assets[_id];
     uint256 price = asset.price;
     address payable creator = asset.creator;
-    (bool paid, bytes memory data) = address(creator).call{value: price}("");
-    if(paid) {
-       safeTransferFrom(creator, msg.sender, _id);
-       asset.sold = true;
-       asset.owner = msg.sender;
-    }
+    creator.transfer(price);
+    safeTransferFrom(creator, msg.sender, _id);
+    asset.sold = true;
+    asset.owner = msg.sender;
     assets[_id] = asset;
   }
 }
