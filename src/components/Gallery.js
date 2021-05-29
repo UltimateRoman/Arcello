@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class Home extends Component {
+class Gallery extends Component {
 
     render() {
         return (
@@ -13,4 +13,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default Gallery;
