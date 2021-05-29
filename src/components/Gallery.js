@@ -66,6 +66,20 @@ class Gallery extends Component {
                                                 <br />
                                                 <button type="submit" className="btn btn-outline-info">Create Bid</button>
                                             </form>
+                                            {if(asset.approvedTo == this.props.account) {
+                                                return(
+                                                    <Button
+                                                        variant="primary"
+                                                        name={asset.id}
+                                                        onClick={(event) => {
+                                                            this.props.purchaseAsset(event.target.name)
+                                                        }}
+                                                    >
+                                                    Purchase
+                                                </Button>
+                                                )
+                                            }
+                                            }
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>

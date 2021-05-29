@@ -107,6 +107,18 @@ class App extends Component {
       })
   }
 
+  verifyOwnership(id) {
+    this.setState({ loading: true })
+    this.state.arcello.methods.ownerOf(id).send({ from: this.state.account })
+      .once('confirmation', (n, receipt) => {
+        this.setState({ loading: false })
+        window.location.reload()
+      })
+      .then((result) => {
+        return result
+      })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -122,6 +134,7 @@ class App extends Component {
     this.createBid = this.createBid.bind(this)
     this.approveBid = this.approveBid.bind(this)
     this.purchaseAsset = this.purchaseAsset.bind(this)
+    this.verifyOwnership = this.verifyOwnership.bind(this)
   }
 
   render() {
@@ -155,7 +168,7 @@ class App extends Component {
                 {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                    : <Home />
+                    : <Home verifyOwnership={this.verifyOwnership} />
                 }
               </React.Fragment>
             )} />
@@ -165,9 +178,10 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Gallery
-                      assets={this.state.assets}
-                      createBid={this.createBid}
-                      purchaseAsset={this.purchaseAsset}
+                        account={this.state.account}
+                        assets={this.state.assets}
+                        createBid={this.createBid}
+                        purchaseAsset={this.purchaseAsset}
                     />
                 }
               </React.Fragment>
@@ -186,7 +200,7 @@ class App extends Component {
                 {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                    : <Assets assets = {this.state.myassets} />
+                    : <Assets assets={this.state.myassets} />
                 }
               </React.Fragment>
             )} />
@@ -196,8 +210,8 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Bids 
-                        bids = {this.state.bids}
-                        approveBid = {this.approveBid}
+                        bids={this.state.bids}
+                        approveBid={this.approveBid}
                       />
                 }
               </React.Fragment>
