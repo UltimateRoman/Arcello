@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Arcello from '../abis/Arcello.json';
-import { ReactNavbar } from "react-responsive-animate-navbar";
 import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
