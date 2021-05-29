@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from 'react-bootstrap/Card'
 import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button'
 
 class Gallery extends Component {
 
@@ -60,25 +61,22 @@ class Gallery extends Component {
                                                     type="text"
                                                     ref={(input) => { this.bidamount = input }}
                                                     className="form-control"
-                                                    placeholder="Bid Amount"
+                                                    placeholder={`Place a bid higher that ${window.web3.utils.fromWei(asset.price.toString(), 'Ether')} CELO`}
                                                     required
                                                 />
                                                 <br />
                                                 <button type="submit" className="btn btn-outline-info">Create Bid</button>
                                             </form>
-                                            {if(asset.approvedTo == this.props.account) {
-                                                return(
-                                                    <Button
-                                                        variant="primary"
-                                                        name={asset.id}
-                                                        onClick={(event) => {
-                                                            this.props.purchaseAsset(event.target.name)
-                                                        }}
-                                                    >
-                                                    Purchase
-                                                </Button>
-                                                )
-                                            }
+                                            <br />
+                                            {
+                                                asset.approvedTo === this.props.account &&
+                                                <Button
+                                                    variant="primary"
+                                                    name={asset.id}
+                                                    onClick={(event) => {
+                                                        this.props.purchaseAsset(event.target.name)
+                                                    }}
+                                                >Purchase</Button>
                                             }
                                         </Card.Text>
                                     </Card.Body>

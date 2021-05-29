@@ -6,7 +6,7 @@ class Bids extends Component {
 
     render() {
         return (
-            <div className="container-fluid mt-5">
+            <div className="container-fluid mt-5" style={{ textAlign: 'center' }}>
                 <div className="row">
                     <h1>View Bids for your Assets</h1>
                     <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
