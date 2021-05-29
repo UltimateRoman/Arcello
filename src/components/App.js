@@ -7,6 +7,7 @@ import './App.css';
 import Home from './Home';
 import Gallery from './Gallery';
 import Create from './Create';
+import Assets from './Assets';
 import Bids from './Bids';
 import logo1 from '../logo.png';
 import Navbar from 'react-bootstrap/Navbar';
@@ -177,6 +178,15 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Create createAsset={this.createAsset} />
+                }
+              </React.Fragment>
+            )} />
+            <Route exact path="/myassets" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    : <Assets assets = {this.state.myassets} />
                 }
               </React.Fragment>
             )} />
