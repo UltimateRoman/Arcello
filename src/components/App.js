@@ -114,7 +114,7 @@ class App extends Component {
               {
                 this.state.loading
                   ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                  : <Create />
+                  : <Create createAsset={this.createAsset} />
               }
             </React.Fragment>
           )} />
