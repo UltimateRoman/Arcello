@@ -10,7 +10,7 @@ class Home extends Component {
             <div className="contain">
                 <h1 align="center" style={{ marginTop: '100px' }} class="w3-tangerine">Arcello</h1>
                 <h3 align="center"> Team Coding-Fortress </h3>
-                <Card>
+                <Card className="home-card">
                     <Card.Img variant="top" src={mainImg} />
                     <Card.Body>
                         <Card.Text>
@@ -20,7 +20,7 @@ class Home extends Component {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card>
+                <Card className="home-card">
                     <Card.Body>
                         <Card.Text>
                             <h3>Idea Proposal</h3>
@@ -31,7 +31,7 @@ class Home extends Component {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card>
+                <Card className="home-card">
                     <Card.Body>
                         <Card.Text>
                             <h3>How It Works</h3>
@@ -45,7 +45,7 @@ class Home extends Component {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card>
+                <Card className="home-card">
                     <Card.Body>
                         <Card.Text>
                             <h3>Features</h3>
@@ -60,7 +60,7 @@ class Home extends Component {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card>
+                <Card className="home-card">
                     <Card.Body>
                         <Card.Text>
                             <h3>Problems With Conventional Platforms</h3>
@@ -74,7 +74,7 @@ class Home extends Component {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-                <Card>
+                <Card className="home-card">
                     <Card.Body>
                         <Card.Text>
                             <h3>Arcello's Advantages</h3>
