@@ -4,8 +4,12 @@
     font: italic small-caps bold 17px/30px Georgia, serif;    
 }
 
-.center{
+.center {
     position: relative;
     top:30%;
     left:45%; 
-  }
+}
+
+.w3-tangerine {
+    margin-top: 5%;
+}

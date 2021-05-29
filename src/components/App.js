@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Arcello from '../abis/Arcello.json';
-import { ReactNavbar } from "react-responsive-animate-navbar";
+// import { ReactNavbar } from "react-responsive-animate-navbar";
+import Navbar from 'react-bootstrap/Navbar';
 import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Home from './Home';
 import Create from './Create';
 import logo1 from '../logo.png';
+import { Nav } from 'react-bootstrap';
 
 class App extends Component {
 
@@ -88,7 +90,7 @@ class App extends Component {
     return (
       <div style={{ height: 800 }}>
         <Router>
-          <ReactNavbar
+          {/* <ReactNavbar
             color="rgb(0,0,0)"
             logo={logo1}
             menu={[
@@ -99,12 +101,33 @@ class App extends Component {
               { name: "BIDS", to: "/bids" },
             ]}
             social={[]}
-          />
+          /> */}
+          <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Navbar.Brand href="/">
+              <img
+                src={logo1}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/gallery">Gallery</Nav.Link>
+                <Nav.Link href="/create">Create</Nav.Link>
+                <Nav.Link href="/myassets">Your Assets</Nav.Link>
+                <Nav.Link href="/bids">Bids</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
           <Route exact path="/" render={props => (
             <React.Fragment>
               {
                 this.state.loading
-                  ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
+                  ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
                   : <Home />
               }
             </React.Fragment>
@@ -113,7 +136,7 @@ class App extends Component {
             <React.Fragment>
               {
                 this.state.loading
-                  ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
+                  ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
                   : <Create createAsset={this.createAsset} />
               }
             </React.Fragment>

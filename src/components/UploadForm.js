@@ -9,9 +9,11 @@ export default class UploadForm extends React.Component {
     constructor(props) {
         super(props);
         this.fileInput = React.createRef();
+        this.nameInput = React.createRef();
+        this.priceInput = React.createRef();
         this.acceptedFileFormats = props.acceptedFileFormats ? props.acceptedFileFormats : ".tiff,.pjp,.jfif,.gif,.svg,.bmp,.png,.jpeg,.svgz,.jpg,.webp,.ico,.xbm,.dib,.tif,.pjpeg,.avif,.m4v,.mp4,.mov,.mp3,.wav,.obj,.mtl,.gltf,.glb,.bin,.fbx,.zip,.csv,.usdz,.svg,.stl";
         this.maxFileSize = props.maxFileSize ? props.maxFileSize : 25000000;
-        this.callBack = props.createAsset ? (price, name, fileID) => props.createAsset(price, name, fileID) : (fileID) => { console.log(`File ID: ${fileID}`) };
+        this.callBack = props.createAsset ? props.createAsset : (price, name, fileID) => { console.log(`File ID: ${fileID}, Price: $${price}, Name: ${name}`) };
     }
 
     state = {
@@ -34,6 +36,8 @@ export default class UploadForm extends React.Component {
             fileSelected: false
         });
         this.fileInput.current.value = "";
+        this.nameInput.current.value = "";
+        this.priceInput.current.value = "";
     }
 
     ShowAlert(alertVariant, alertMessage = '', alertTimeout = 6000) {
@@ -60,7 +64,7 @@ export default class UploadForm extends React.Component {
             formdata.append("hologram_type", "2");
             formdata.append("email", process.env.REACT_APP_ECHOAR_EMAIL);
             formdata.append("type", "upload");
-            formdata.append("file_model", document.querySelector('#customFile').files[0]);
+            formdata.append("file_model", this.fileInput.current.files[0]);
 
             const options = {
                 headers: {
@@ -84,7 +88,7 @@ export default class UploadForm extends React.Component {
                 }
                 else {
                     this.ShowAlert('success', 'File successfully uploaded');
-                    this.callBack(result.data.id);
+                    this.callBack(this.priceInput.current.value, this.nameInput.current.value, result.data.id);
                 }
             }).catch((error) => {
                 console.log('error: ', error.message);
@@ -101,6 +105,15 @@ export default class UploadForm extends React.Component {
         return (
             <div className="upload-form-div">
                 <form onSubmit={this.UploadToEchoAR} className="upload-form">
+                    <div className="input-group mb-3">
+                        <input ref={this.nameInput} type="text" className="form-control" placeholder="Name" />
+                    </div>
+                    <div className="input-group mb-3">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text">$</span>
+                        </div>
+                        <input ref={this.priceInput} type="number" className="form-control" placeholder="Price" />
+                    </div>
                     <div className="custom-file">
                         <input ref={this.fileInput} type="file" name="file_model" id="customFile" className="custom-file-input" onChange={(event) => {
                             event.preventDefault();
