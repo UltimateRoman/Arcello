@@ -11,7 +11,7 @@ export default class UploadForm extends React.Component {
         this.fileInput = React.createRef();
         this.acceptedFileFormats = props.acceptedFileFormats ? props.acceptedFileFormats : ".tiff,.pjp,.jfif,.gif,.svg,.bmp,.png,.jpeg,.svgz,.jpg,.webp,.ico,.xbm,.dib,.tif,.pjpeg,.avif,.m4v,.mp4,.mov,.mp3,.wav,.obj,.mtl,.gltf,.glb,.bin,.fbx,.zip,.csv,.usdz,.svg,.stl";
         this.maxFileSize = props.maxFileSize ? props.maxFileSize : 25000000;
-        this.callBack = props.createAsset ? props.createAsset(price, name, fileID) : (fileID) => { console.log(`File ID: ${fileID}`) };
+        this.callBack = props.createAsset ? (price, name, fileID) => props.createAsset(price, name, fileID) : (fileID) => { console.log(`File ID: ${fileID}`) };
     }
 
     state = {

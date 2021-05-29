@@ -3,9 +3,6 @@ import './App.css';
 import UploadForm from './UploadForm.js';
 
 class Create extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
