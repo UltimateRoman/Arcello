@@ -25,6 +25,9 @@ class Gallery extends Component {
             <div className="container-fluid mt-5">
                 <div className="row">
                     <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
+                    <h1>Search and Purchase Assets</h1>
+                    <input type="text" class="form-control" value={this.state.search} onChange={this.updateSearch.bind(this)} />
+                    <p>&nbsp;</p>
                         {filteredAssets.map((asset, key) => {
                             return (
                                 <div class="coupon" key={key} >
