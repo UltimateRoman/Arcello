@@ -7,6 +7,7 @@ import './App.css';
 import Home from './Home';
 import Gallery from './Gallery';
 import Create from './Create';
+import Bids from './Bids';
 import logo1 from '../logo.png';
 import Navbar from 'react-bootstrap/Navbar';
 import { Nav } from 'react-bootstrap';
@@ -176,6 +177,18 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Create createAsset={this.createAsset} />
+                }
+              </React.Fragment>
+            )} />
+            <Route exact path="/bids" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    : <Bids 
+                        bids = {this.state.bids}
+                        approveBid = {this.approveBid}
+                      />
                 }
               </React.Fragment>
             )} />
