@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
 import Arcello from '../abis/Arcello.json';
-// import { ReactNavbar } from "react-responsive-animate-navbar";
-import Navbar from 'react-bootstrap/Navbar';
+import { ReactNavbar } from "react-responsive-animate-navbar";
 import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
@@ -10,6 +9,7 @@ import Home from './Home';
 import Gallery from './Gallery';
 import Create from './Create';
 import logo1 from '../logo.png';
+import Navbar from 'react-bootstrap/Navbar';
 import { Nav } from 'react-bootstrap';
 
 class App extends Component {
@@ -126,46 +126,34 @@ class App extends Component {
   render() {
     return (
       <div style={{ height: 800 }}>
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+          <Navbar.Brand href="/">
+            <img
+              src={logo1}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/gallery">Gallery</Nav.Link>
+              <Nav.Link href="/create">Create</Nav.Link>
+              <Nav.Link href="/myassets">Your Assets</Nav.Link>
+              <Nav.Link href="/bids">Bids</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
         <Router>
-          {/* <ReactNavbar
-            color="rgb(0,0,0)"
-            logo={logo1}
-            menu={[
-              { name: "HOME", to: "/"},
-              { name: "GALLERY", to: "/gallery" },
-              { name: "CREATE", to: "/create"},
-              { name: "YOUR ASSETS", to: "/myassets" },
-              { name: "BIDS", to: "/bids" },
-            ]}
-            social={[]}
-          /> */}
           <Switch>
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-              <Navbar.Brand href="/">
-                <img
-                  src={logo1}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                  alt="React Bootstrap logo"
-                />
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                  <Nav.Link href="/">Home</Nav.Link>
-                  <Nav.Link href="/gallery">Gallery</Nav.Link>
-                  <Nav.Link href="/create">Create</Nav.Link>
-                  <Nav.Link href="/myassets">Your Assets</Nav.Link>
-                  <Nav.Link href="/bids">Bids</Nav.Link>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
             <Route exact path="/" render={props => (
               <React.Fragment>
                 {
                   this.state.loading
-                    ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Home />
                 }
               </React.Fragment>
@@ -187,7 +175,7 @@ class App extends Component {
               <React.Fragment>
                 {
                   this.state.loading
-                    ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Create createAsset={this.createAsset} />
                 }
               </React.Fragment>

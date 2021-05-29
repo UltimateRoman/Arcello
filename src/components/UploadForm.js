@@ -112,7 +112,7 @@ export default class UploadForm extends React.Component {
                         <div className="input-group-prepend">
                             <span className="input-group-text">$</span>
                         </div>
-                        <input ref={this.priceInput} type="number" className="form-control" placeholder="Price" />
+                        <input ref={this.priceInput} type="test" className="form-control" placeholder="Price" />
                     </div>
                     <div className="custom-file">
                         <input ref={this.fileInput} type="file" name="file_model" id="customFile" className="custom-file-input" onChange={(event) => {
