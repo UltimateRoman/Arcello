@@ -7,6 +7,7 @@ import { SemipolarSpinner } from 'react-epic-spinners';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Home from './Home';
+import Gallery from './Gallery';
 import Create from './Create';
 import logo1 from '../logo.png';
 import { Nav } from 'react-bootstrap';
@@ -43,7 +44,12 @@ class App extends Component {
       const tokenid = await arcello.methods.tokenid.call()
       for (let i = 1; i <= tokenid; i++) {
         const asset = await arcello.methods.assets(i).call()
-        if (asset.owner === this.state.account) {
+        if (asset.owner == this.state.account) {
+          this.setState({
+            myassets: [...this.state.myassets, asset]
+          })
+        }
+        else if (asset.sold == false) {
           this.setState({
             assets: [...this.state.assets, asset]
           })
@@ -73,17 +79,48 @@ class App extends Component {
       })
   }
 
+  createBid(tid, amount) {
+    this.setState({ loading: true })
+    this.state.arcello.methods.createBid(tid, window.web3.utils.toWei(amount.toString(), 'ether')).send({ from: this.state.account })
+      .once('confirmation', (n, receipt) => {
+        this.setState({ loading: false })
+        window.location.reload()
+      })
+  }
+
+  approveBid(id) {
+    this.setState({ loading: true })
+    this.state.arcello.methods.approveBid(id).send({ from: this.state.account })
+      .once('confirmation', (n, receipt) => {
+        this.setState({ loading: false })
+        window.location.reload()
+      })
+  }
+
+  purchaseAsset(id) {
+    this.setState({ loading: true })
+    this.state.arcello.methods.purchaseAsset(id).send({ from: this.state.account })
+      .once('confirmation', (n, receipt) => {
+        this.setState({ loading: false })
+        window.location.reload()
+      })
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       account: '',
       arcello: null,
       assets: [],
+      myassets: [],
       bids: [],
       loading: true
     }
 
     this.createAsset = this.createAsset.bind(this)
+    this.createBid = this.createBid.bind(this)
+    this.approveBid = this.approveBid.bind(this)
+    this.purchaseAsset = this.purchaseAsset.bind(this)
   }
 
   render() {
@@ -94,53 +131,68 @@ class App extends Component {
             color="rgb(0,0,0)"
             logo={logo1}
             menu={[
-              { name: "HOME", to: "/" },
+              { name: "HOME", to: "/"},
               { name: "GALLERY", to: "/gallery" },
-              { name: "CREATE", to: "/create" },
+              { name: "CREATE", to: "/create"},
               { name: "YOUR ASSETS", to: "/myassets" },
               { name: "BIDS", to: "/bids" },
             ]}
             social={[]}
           /> */}
-          <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-            <Navbar.Brand href="/">
-              <img
-                src={logo1}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                alt="React Bootstrap logo"
-              />
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/gallery">Gallery</Nav.Link>
-                <Nav.Link href="/create">Create</Nav.Link>
-                <Nav.Link href="/myassets">Your Assets</Nav.Link>
-                <Nav.Link href="/bids">Bids</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-          <Route exact path="/" render={props => (
-            <React.Fragment>
-              {
-                this.state.loading
-                  ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
-                  : <Home />
-              }
-            </React.Fragment>
-          )} />
-          <Route exact path="/create" render={props => (
-            <React.Fragment>
-              {
-                this.state.loading
-                  ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
-                  : <Create createAsset={this.createAsset} />
-              }
-            </React.Fragment>
-          )} />
+          <Switch>
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+              <Navbar.Brand href="/">
+                <img
+                  src={logo1}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="React Bootstrap logo"
+                />
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <Nav.Link href="/gallery">Gallery</Nav.Link>
+                  <Nav.Link href="/create">Create</Nav.Link>
+                  <Nav.Link href="/myassets">Your Assets</Nav.Link>
+                  <Nav.Link href="/bids">Bids</Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+            <Route exact path="/" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    : <Home />
+                }
+              </React.Fragment>
+            )} />
+            <Route exact path="/gallery" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    : <Gallery
+                      assets={this.state.assets}
+                      createBid={this.createBid}
+                      purchaseAsset={this.purchaseAsset}
+                    />
+                }
+              </React.Fragment>
+            )} />
+            <Route exact path="/create" render={props => (
+              <React.Fragment>
+                {
+                  this.state.loading
+                    ? <div className="center"><SemipolarSpinner size="100" color="blue" /></div>
+                    : <Create createAsset={this.createAsset} />
+                }
+              </React.Fragment>
+            )} />
+          </Switch>
         </Router>
       </div>
     );
