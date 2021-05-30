@@ -136,7 +136,7 @@ export default class UploadForm extends React.Component {
                     </div>
                     <div className="input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">CELLO</span>
+                            <span className="input-group-text">CELO</span>
                         </div>
                         <input ref={this.priceInput} type="test" className="form-control" placeholder="Price" />
                     </div>

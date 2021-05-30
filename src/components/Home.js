@@ -8,8 +8,8 @@ class Home extends Component {
     render() {
         return (
             <div className="contain">
-                <h1 align="center" style={{ marginTop: '100px' }} class="w3-tangerine">Arcello</h1>
-                <h3 align="center"> Team Coding-Fortress </h3>
+                <h1 align="center" style={{ marginTop: '100px' }} class="w3-tangerine">Arcello | Team Coding-Fortress</h1>
+                <h3 align="center">Welcome {this.props.account}</h3>
                 <Card className="home-card">
                     <Card.Img variant="top" src={mainImg} />
                     <Card.Body>

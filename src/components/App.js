@@ -155,10 +155,7 @@ class App extends Component {
                 {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                    : <Home 
-                        account={this.state.account}
-                        verifyOwnership={this.verifyOwnership} 
-                      />
+                    : <Home account={this.state.account} />
                 }
               </React.Fragment>
             )} />
@@ -168,10 +165,10 @@ class App extends Component {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
                     : <Gallery
-                        account={this.state.account}
-                        assets={this.state.assets}
-                        createBid={this.createBid}
-                        purchaseAsset={this.purchaseAsset}
+                      account={this.state.account}
+                      assets={this.state.assets}
+                      createBid={this.createBid}
+                      purchaseAsset={this.purchaseAsset}
                     />
                 }
               </React.Fragment>
@@ -199,10 +196,10 @@ class App extends Component {
                 {
                   this.state.loading
                     ? <div class="center"><SemipolarSpinner size="100" color="blue" /></div>
-                    : <Bids 
-                        bids={this.state.bids}
-                        approveBid={this.approveBid}
-                      />
+                    : <Bids
+                      bids={this.state.bids}
+                      approveBid={this.approveBid}
+                    />
                 }
               </React.Fragment>
             )} />
