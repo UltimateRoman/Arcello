@@ -64,9 +64,8 @@ contract Arcello is ERC721 {
 
   function purchaseAsset(uint _id) public payable isAsset(_id) {
     Asset memory asset = assets[_id];
-    uint256 price = asset.price;
     address payable creator = asset.creator;
-    creator.transfer(price);
+    creator.transfer(msg.value);
     safeTransferFrom(creator, msg.sender, _id);
     asset.sold = true;
     asset.owner = msg.sender;

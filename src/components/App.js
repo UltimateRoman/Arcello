@@ -98,24 +98,12 @@ class App extends Component {
       })
   }
 
-  purchaseAsset(id) {
+  purchaseAsset(id, price) {
     this.setState({ loading: true })
-    this.state.arcello.methods.purchaseAsset(id).send({ from: this.state.account })
+    this.state.arcello.methods.purchaseAsset(id).send({ from: this.state.account, value: window.web3.utils.toWei(price.toString(), 'ether') })
       .once('confirmation', (n, receipt) => {
         this.setState({ loading: false })
         window.location.reload()
-      })
-  }
-
-  verifyOwnership(id) {
-    this.setState({ loading: true })
-    this.state.arcello.methods.ownerOf(id).send({ from: this.state.account })
-      .once('confirmation', (n, receipt) => {
-        this.setState({ loading: false })
-        window.location.reload()
-      })
-      .then((result) => {
-        return result
       })
   }
 
@@ -134,7 +122,6 @@ class App extends Component {
     this.createBid = this.createBid.bind(this)
     this.approveBid = this.approveBid.bind(this)
     this.purchaseAsset = this.purchaseAsset.bind(this)
-    this.verifyOwnership = this.verifyOwnership.bind(this)
   }
 
   render() {
