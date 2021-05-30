@@ -8,8 +8,8 @@ class Bids extends Component {
         return (
             <div className="container-fluid mt-5" style={{ textAlign: 'center' }}>
                 <div className="row">
-                    <h1>View Bids for your Assets</h1>
-                    <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '500px' }}>
+                    <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ margin: '0% 15%' }}>
+                        <h1>View Bids for your Assets</h1>
                         {this.props.bids.map((bid, key) => {
                             return (
                                 <Card>

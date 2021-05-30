@@ -39,7 +39,7 @@ class Gallery extends Component {
                                         <Card.Subtitle className="mb-2 text-muted">Creator: {asset.creator}</Card.Subtitle>
                                         <br />
                                         <div className="echoar-embed-wrapper" style={{ width: '100%' }}>
-                                            <iframe title={asset.name} style={{ width: '80%', height: '500px', borderRadius: '2%' }} src={"https://console.echoar.xyz/webar?key=" + process.env.REACT_APP_ECHOAR_KEY + "&entry=" + asset.fileid} />
+                                            <iframe allowFullScreen title={asset.name} style={{ width: '80%', height: '500px', borderRadius: '2%' }} src={"https://console.echoar.xyz/webar?key=" + process.env.REACT_APP_ECHOAR_KEY + "&entry=" + asset.fileid} />
                                         </div>
                                         <br />
                                         <Card.Subtitle className="mb-2 text-muted">Base Price: {window.web3.utils.fromWei(asset.price.toString(), 'Ether')} CELO</Card.Subtitle>
