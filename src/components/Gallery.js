@@ -73,7 +73,7 @@ class Gallery extends Component {
                                                     variant="primary"
                                                     name={asset.id}
                                                     onClick={(event) => {
-                                                        this.props.purchaseAsset(event.target.name)
+                                                        this.props.purchaseAsset(event.target.name, window.web3.utils.fromWei(asset.price.toString(), 'Ether'))
                                                     }}
                                                 >Purchase</Button>
                                             }
