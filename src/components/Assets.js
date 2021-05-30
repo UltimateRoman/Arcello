@@ -18,8 +18,8 @@ class Assets extends Component {
                                         <Card.Subtitle className="mb-2 text-muted">Creator: {asset.creator}</Card.Subtitle>
                                         <Card.Subtitle className="mb-2 text-muted">NFT ID: {asset.id.toString()}</Card.Subtitle>
                                         <br />
-                                        <div className="sketchfab-embed-wrapper" style={{ width: '100%' }}>
-                                            <iframe style={{ width: '80%', height: '500px', borderRadius: '2%' }} frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="fullscreen; autoplay; vr" src={asset.fileid} />
+                                        <div className="echoar-embed-wrapper" style={{ width: '100%' }}>
+                                            <iframe title={asset.name} style={{ width: '80%', height: '500px', borderRadius: '2%' }} src={"https://console.echoar.xyz/webar?key=" + process.env.REACT_APP_ECHOAR_KEY + "&entry=" + asset.fileid} />
                                         </div>
                                     </Card.Body>
                                 </Card>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Card from 'react-bootstrap/Card'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
 
 class Gallery extends Component {
@@ -39,8 +38,8 @@ class Gallery extends Component {
                                         <Card.Title>{asset.name}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">Creator: {asset.creator}</Card.Subtitle>
                                         <br />
-                                        <div className="sketchfab-embed-wrapper" style={{ width: '100%' }}>
-                                            <iframe style={{ width: '80%', height: '500px', borderRadius: '2%' }} frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="fullscreen; autoplay; vr" src={asset.fileid} />
+                                        <div className="echoar-embed-wrapper" style={{ width: '100%' }}>
+                                            <iframe title={asset.name} style={{ width: '80%', height: '500px', borderRadius: '2%' }} src={"https://console.echoar.xyz/webar?key=" + process.env.REACT_APP_ECHOAR_KEY + "&entry=" + asset.fileid} />
                                         </div>
                                         <br />
                                         <Card.Subtitle className="mb-2 text-muted">Base Price: {window.web3.utils.fromWei(asset.price.toString(), 'Ether')} CELO</Card.Subtitle>

@@ -11,10 +11,10 @@ export default class UploadForm extends React.Component {
         this.fileInput = React.createRef();
         this.nameInput = React.createRef();
         this.priceInput = React.createRef();
-        this.urlInput = React.createRef();
+        // this.urlInput = React.createRef();
         this.acceptedFileFormats = props.acceptedFileFormats ? props.acceptedFileFormats : ".tiff,.pjp,.jfif,.gif,.svg,.bmp,.png,.jpeg,.svgz,.jpg,.webp,.ico,.xbm,.dib,.tif,.pjpeg,.avif,.m4v,.mp4,.mov,.mp3,.wav,.obj,.mtl,.gltf,.glb,.bin,.fbx,.zip,.csv,.usdz,.svg,.stl";
         this.maxFileSize = props.maxFileSize ? props.maxFileSize : 25000000;
-        this.callBack = props.createAsset ? props.createAsset : (price, name, fileURL) => { console.log(`File URL: ${fileURL}, Price: CELLO ${price}, Name: ${name}`) };
+        this.callBack = props.createAsset ? props.createAsset : (price, name, fileID) => { console.log(`File ID: ${fileID}, Price: CELLO ${price}, Name: ${name}`) };
     }
 
     state = {
@@ -36,10 +36,10 @@ export default class UploadForm extends React.Component {
             CancelTokenSource: axios.CancelToken.source(),
             fileSelected: false
         });
-        this.fileInput.current.value = "";
-        this.nameInput.current.value = "";
-        this.priceInput.current.value = "";
-        this.urlInput.current.value = "";
+        if (this.fileInput.current) { this.fileInput.current.value = ""; }
+        if (this.nameInput.current) { this.nameInput.current.value = ""; }
+        if (this.priceInput.current) { this.priceInput.current.value = ""; }
+        // this.urlInput.current.value = "";
     }
 
     IsUrlValid(userInput) {
@@ -78,6 +78,8 @@ export default class UploadForm extends React.Component {
 
     UploadToEchoAR = event => {
         event.preventDefault();
+        console.log(`Price: ${this.priceInput.current.value}`);
+        console.log(`Name: ${this.nameInput.current.value}`);
         if (this.state.fileSelected) {
             var formdata = new FormData();
             formdata.append("key", process.env.REACT_APP_ECHOAR_KEY);
@@ -86,6 +88,9 @@ export default class UploadForm extends React.Component {
             formdata.append("email", process.env.REACT_APP_ECHOAR_EMAIL);
             formdata.append("type", "upload");
             formdata.append("file_model", this.fileInput.current.files[0]);
+
+            console.log(`key : ${process.env.REACT_APP_ECHOAR_KEY}`);
+            console.log(`key : ${process.env.REACT_APP_ECHOAR_EMAIL}`);
 
             const options = {
                 headers: {
@@ -102,7 +107,6 @@ export default class UploadForm extends React.Component {
 
             axios.post('https://console.echoAR.xyz/upload', formdata, options).then((result) => {
                 // console.log(result);
-                this.ResetForm();
                 if (typeof (result.data) == 'string') {
                     console.log(`Result data: ${result.data}`);
                     this.ShowAlert('secondary', result.data);
@@ -111,6 +115,7 @@ export default class UploadForm extends React.Component {
                     this.ShowAlert('success', 'File successfully uploaded');
                     this.callBack(this.priceInput.current.value, this.nameInput.current.value, result.data.id);
                 }
+                this.ResetForm();
             }).catch((error) => {
                 console.log('error: ', error.message);
                 this.ResetForm();
@@ -125,7 +130,7 @@ export default class UploadForm extends React.Component {
     render() {
         return (
             <div className="upload-form-div">
-                <form onSubmit={this.UploadWithURL} className="upload-form">
+                <form onSubmit={this.UploadToEchoAR} className="upload-form">
                     <div className="input-group mb-3">
                         <input ref={this.nameInput} type="text" className="form-control" placeholder="Name" />
                     </div>
@@ -135,10 +140,10 @@ export default class UploadForm extends React.Component {
                         </div>
                         <input ref={this.priceInput} type="test" className="form-control" placeholder="Price" />
                     </div>
-                    <div className="input-group mb-3">
+                    {/* <div className="input-group mb-3">
                         <input ref={this.urlInput} type="text" className="form-control" id="basic-url" placeholder="3D Model URL" />
-                    </div>
-                    {/* <div className="custom-file">
+                    </div> */}
+                    <div className="custom-file">
                         <input ref={this.fileInput} type="file" name="file_model" id="customFile" className="custom-file-input" onChange={(event) => {
                             event.preventDefault();
                             if (this.fileInput.current.files[0]) {
@@ -151,7 +156,7 @@ export default class UploadForm extends React.Component {
                             }
                         }} accept={this.acceptedFileFormats} />
                         <label className="custom-file-label" htmlFor="customFile">{this.state.fileInputLabel}</label>
-                    </div> */}
+                    </div>
                     <div className="btn-group">
                         <button type="submit" className="btn btn-primary">Upload</button>
                         {this.state.uploadProgress > 0 && <button type="button" className="btn btn-danger" onClick={() => {
