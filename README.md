@@ -1,6 +1,8 @@
 # Arcello
 A Decentralized NFT Marketplace and Gallery to showcase, auction and trade 3D Digital Art & Content in the form of crypto-collectibles
 
+![Logo](logo.png?raw=true)
+
 ## The Problem
 
 A major problem that digital artists face today is digital piracy. The work is reproducable and adding to that they would also lose a part of their revenue as commissions to 3rd parties. Conventional digital art platforms also lack transparency and their records are vulnerable to tampering. They also have poor or absent ownership verification of the assets.
